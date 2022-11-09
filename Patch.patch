@@ -1,0 +1,50 @@
+diff --git a/photoshop/Picture.java b/photoshop/Picture.java
+index a14be9d..d374be7 100644
+--- a/photoshop/Picture.java
++++ b/photoshop/Picture.java
+@@ -366,17 +366,18 @@ public class Picture {
+     /** detect and mark edges in an image */
+     public void edgeDetection(int dist)
+     {
+-    	for(int x = 1; x < pixels.length;x++){
+-            for(int y = 1; y < pixels[x].length;y++){
+-                if(pixels[x][y].colorDistance(pixels[x-1][y].getColor()) < dist)
+-                    pixels[x][y].setColor(0, 0 ,0);
+-                else if(pixels[x][y].colorDistance(pixels[x][y-1].getColor()) < dist)
+-                    pixels[x][y].setColor(0, 0 ,0);
+-                else if(pixels[x][y].colorDistance(pixels[x-1][y-1].getColor()) < dist)
+-                    pixels[x][y].setColor(0, 0 ,0);
+-
+-                else
+-                    pixels[x][y].setColor(255, 255,255);
++    	for(int x = 0; x < pixels.length-1;x++){
++            for(int y = 0; y < pixels[x].length-1;y++){
++                if(pixels[x][y].colorDistance(pixels[x+1][y].getColor()) > dist || pixels[x][y].colorDistance(pixels[x][y+1].getColor()) > dist || pixels[x][y].colorDistance(pixels[x+1][y+1].getColor()) > dist){
++
++                    pixels[x][y].setColor(0, 0, 0);
++                }
++                else{
++                    pixels[x][y].setColor(255, 255 ,255);
++                    
++                }
++                
++                
+             }
+         }
+     }
+@@ -385,7 +386,14 @@ public class Picture {
+ 	/** copy another picture's pixels into this picture, if a color is within dist of param Color */
+ 	public void chromakey(Picture other, Color color, int dist)
+ 	{
+-		//TODO
++        Pixel[][] o = other.getPixels();
++		for(int x = 0; x < pixels.length;x++){
++            for(int y = 0; y < pixels[0].length;y++){
++                if(pixels[x][y].colorDistance(color) < dist){
++                    pixels[x][y].setColor(o[x][y].getColor());
++                }
++            }
++        }
+ 	}
+ 
+ 	/** steganography encode (hide the message in msg in this picture) */
