@@ -10,7 +10,7 @@ import java.io.IOException;
 public class Picture {
 
     /** The 2D array of pixels that comprise this picture */
-	private Pixel[][] pixels;
+    private Pixel[][] pixels;
 
     /**
      * Creates a Picture from an image file in the "images" directory
@@ -154,7 +154,7 @@ public class Picture {
      * @return 2D array of pixels that make up this Picture
      */
     public Pixel[][] getPixels() {
-    		return pixels;
+            return pixels;
     }
 
     /********************************************************
@@ -164,7 +164,7 @@ public class Picture {
     /** remove all blue tint from a picture */
     public void zeroBlue()
     {
-    	for(int x = 0; x < pixels.length;x++){
+        for(int x = 0; x < pixels.length;x++){
             for(int y = 0; y < pixels[x].length;y++)
                 pixels[x][y].setBlue(0);
         }
@@ -173,7 +173,7 @@ public class Picture {
     /** remove everything BUT blue tint from a picture */
     public void keepOnlyBlue()
     {
-    	for(int x = 0; x < pixels.length;x++){
+        for(int x = 0; x < pixels.length;x++){
             for(int y = 0; y < pixels[x].length;y++){
                 pixels[x][y].setGreen(0);
                 pixels[x][y].setRed(0);
@@ -184,7 +184,7 @@ public class Picture {
     /** invert a picture's colors */
     public void negate()
     {
-    	for(int x = 0; x < pixels.length;x++){
+        for(int x = 0; x < pixels.length;x++){
             for(int y = 0; y < pixels[x].length;y++){
                 pixels[x][y].setGreen(255-pixels[x][y].getGreen());
                 pixels[x][y].setRed(255-pixels[x][y].getRed());
@@ -196,7 +196,7 @@ public class Picture {
     /** simulate the over-exposure of a picture in film processing */
     public void solarize(int threshold)
     {
-    	for(int x = 0; x < pixels.length;x++){
+        for(int x = 0; x < pixels.length;x++){
             for(int y = 0; y < pixels[x].length;y++){
                 if(pixels[x][y].getBlue() < threshold){
                     pixels[x][y].setBlue(255-pixels[x][y].getBlue());
@@ -214,7 +214,7 @@ public class Picture {
     /** convert an image to grayscale */
     public void grayscale()
     {
-    	
+        
         for(int x = 0; x < pixels.length;x++){
             for(int y = 0; y < pixels[x].length;y++){
                 int avg = pixels[x][y].getRed() + pixels[x][y].getBlue()+ pixels[x][y].getGreen();
@@ -225,10 +225,10 @@ public class Picture {
         }
     }
 
-	/** change the tint of the picture by the supplied coefficients */
-	public void tint(double red, double blue, double green)
-	{
-		for(int x = 0; x < pixels.length;x++){
+    /** change the tint of the picture by the supplied coefficients */
+    public void tint(double red, double blue, double green)
+    {
+        for(int x = 0; x < pixels.length;x++){
             for(int y = 0; y < pixels[x].length;y++){
                 int nred = (int)(pixels[x][y].getRed()*red);
                 int ngreen =(int) (pixels[x][y].getGreen()*green);
@@ -238,37 +238,37 @@ public class Picture {
                  pixels[x][y].setBlue(Math.min(nblue, 255));pixels[x][y].setGreen(Math.min(ngreen, 255));
                  
         }
-	}
+    }
 }
-	
-	/** reduces the number of colors in an image to create a "graphic poster" effect */
-	public void posterize(int span)
-	{
-		for(int x = 0; x < pixels.length;x++){
+    
+    /** reduces the number of colors in an image to create a "graphic poster" effect */
+    public void posterize(int span)
+    {
+        for(int x = 0; x < pixels.length;x++){
             for(int y = 0; y < pixels[x].length;y++){
                 pixels[x][y].setColor(pixels[x][y].getRed()/span * span, pixels[x][y].getGreen()/span * span, pixels[x][y].getBlue()/span * span);
             }
         }
-	}
+    }
 
     /** mirror an image about a vertical midline, left to right */
     public void mirrorVertical()
     {
-		Pixel leftPixel  = null;
-		Pixel rightPixel = null;
+        Pixel leftPixel  = null;
+        Pixel rightPixel = null;
 
-		int width = pixels[0].length;
+        int width = pixels[0].length;
 
-		for (int r = 0; r < pixels.length; r++)
-		{
-			for (int c = 0; c < width / 2; c++)
-			{
-				leftPixel  = pixels[r][c];
-				rightPixel = pixels[r][(width - 1) - c];
+        for (int r = 0; r < pixels.length; r++)
+        {
+            for (int c = 0; c < width / 2; c++)
+            {
+                leftPixel  = pixels[r][c];
+                rightPixel = pixels[r][(width - 1) - c];
 
-				rightPixel.setColor(leftPixel.getColor());
-			}
-		}
+                rightPixel.setColor(leftPixel.getColor());
+            }
+        }
     }
 
     /** mirror about a vertical midline, right to left */
@@ -291,13 +291,13 @@ public class Picture {
         }
     }
 
-    	
+        
     
 
     /** mirror about a horizontal midline, top to bottom */
     public void mirrorHorizontal()
     {
-    	Pixel top  = null;
+        Pixel top  = null;
         Pixel bottom = null;
 
         int height = pixels.length;
@@ -317,7 +317,7 @@ public class Picture {
     /** flip an image upside down about its bottom edge */
     public void verticalFlip()
     {
-    	Pixel top  = null;
+        Pixel top  = null;
         Pixel bottom = null;
         Color temp = null;
         int height = pixels.length;
@@ -339,7 +339,7 @@ public class Picture {
     /** fix roof on greek temple */
     public void fixRoof()
     {
-    	
+        
         // for(int x = 40; x < 75;x++){
         //     for(int y = 70; y < 253;y++){
         //         pixels[x+75][y+253] = pixels[x][y]; 
@@ -363,70 +363,185 @@ public class Picture {
 
     }
 
-    /** detect and mark edges in an image */
+
+       /** detect and mark edges in an image */
     public void edgeDetection(int dist)
     {
-    	for(int x = 1; x < pixels.length;x++){
-            for(int y = 1; y < pixels[x].length;y++){
-                if(pixels[x][y].colorDistance(pixels[x-1][y].getColor()) < dist)
-                    pixels[x][y].setColor(0, 0 ,0);
-                else if(pixels[x][y].colorDistance(pixels[x][y-1].getColor()) < dist)
-                    pixels[x][y].setColor(0, 0 ,0);
-                else if(pixels[x][y].colorDistance(pixels[x-1][y-1].getColor()) < dist)
-                    pixels[x][y].setColor(0, 0 ,0);
+        
+        for(int x = 0; x < pixels.length-1;x++){
+            for(int y = 0; y < pixels[x].length-1;y++){
+                if(pixels[x][y].colorDistance(pixels[x+1][y].getColor()) > dist || pixels[x][y].colorDistance(pixels[x][y+1].getColor()) > dist || pixels[x][y].colorDistance(pixels[x+1][y+1].getColor()) > dist){
 
-                else
-                    pixels[x][y].setColor(255, 255,255);
+                    pixels[x][y].setColor(0, 0, 0);
+                }
+                else{
+                    pixels[x][y].setColor(255, 255 ,255);
+                    
+                }
+                
+                
             }
         }
     }
 
 
-	/** copy another picture's pixels into this picture, if a color is within dist of param Color */
-	public void chromakey(Picture other, Color color, int dist)
-	{
-		//TODO
-	}
+    /** copy another picture's pixels into this picture, if a color is within dist of param Color */
+    public void chromakey(Picture other, Color color, int dist)
+    {
+        //TODO
+        Pixel[][] o = other.getPixels();
+        for(int x = 0; x < pixels.length;x++){
+            for(int y = 0; y < pixels[0].length;y++){
+                if(pixels[x][y].colorDistance(color) < dist){
+                    pixels[x][y].setColor(o[x][y].getColor());
+                }
+            }
+        }
+    }
 
-	/** steganography encode (hide the message in msg in this picture) */
-	public void encode(Picture msg)
-	{
-		//TODO
-	}
+    /** steganography encode (hide the message in msg in this picture) */
+    public void encode(Picture msg)
+    {
+        Pixel[][] other = msg.getPixels();
+        for(int x = 0; x < pixels.length;x++)
+            for(int y = 0; y < pixels[x].length;y++)
+                if(pixels[x][y].getRed()%2 != 0)
+                    pixels[x][y].setRed(pixels[x][y].getRed()-1);
+        for(int x = 0; x < pixels.length;x++)
+            for(int y = 0; y < pixels[x].length;y++)
+                if(other[x][y].colorDistance(Color.BLACK) < 50){
+                    pixels[x][y].setRed(pixels[x][y].getRed()+1);
+                }
+        
 
-	/** steganography decode (return a new Picture containing the message hidden in this picture) */
-	public Picture decode()
-	{
-		//TODO
+            
 
-		return null; //REPLACE
-	}
+        
 
-	/** perform a simple blur using the colors of neighboring pixels */
-	public Picture simpleBlur()
-	{
-		//TODO
+    }
 
-		return null; //REPLACE
-	}
+    /** steganography decode (return a new Picture containing the message hidden in this picture) */
+    
+        public Picture decode() {
+        Picture newpic = new Picture(pixels.length, pixels[0].length);
+        for (int r = 0; r < pixels.length; r++) {
+            for (int c = 0; c < pixels[0].length; c++) {
+                if (pixels[r][c].getRed() % 2 != 0) {
+                    newpic.pixels[r][c].setColor(Color.black);
+                } else {
+                    newpic.pixels[r][c].setColor(Color.white);
+                }
 
-	/** perform a blur using the colors of pixels within radius of current pixel */
-	public Picture blur(int radius)
-	{
-		//TODO
+            }
+        }
 
-		return null; //REPLACE
-	}
-	
-	/**
-	 * Simulate looking at an image through a pane of glass
-	 * @param dist the "radius" of the neighboring pixels to use
-	 * @return a new Picture with the glass filter applied
-	 */
-	public Picture glassFilter(int dist) 
-	{
-		//TODO
-		
-		return null; //REPLACE
-	}
+        return newpic;
+    }
+
+        
+    
+
+    /** perform a simple blur using the colors of neighboring pixels */
+    public Picture simpleBlur(){
+        Picture newPic = new Picture(pixels.length, pixels[0].length);
+        Pixel[][] other = newPic.getPixels();
+        for(int x = 1; x < pixels.length-1;x++){
+            for(int y = 1; y < pixels[0].length-1;y++){
+                Pixel top = pixels[x-1][y];
+                Pixel bottom = pixels[x+1][y];
+                Pixel left = pixels[x][y-1];
+                Pixel right = pixels[x][y+1];
+
+                other[x][y].setRed((pixels[x][y].getRed() + top.getRed() + bottom.getRed() + left.getRed() + right.getRed())/5);
+
+                other[x][y].setBlue((pixels[x][y].getBlue() + top.getBlue() + bottom.getBlue() + left.getBlue() + right.getBlue())/5);
+
+                other[x][y].setGreen((pixels[x][y].getGreen() + top.getGreen() + bottom.getGreen() + left.getGreen() + right.getGreen())/5);
+            }
+        }
+
+        
+
+        return newPic; //REPLACE
+    }
+
+
+    /** perform a blur using the colors of pixels within radius of current pixel */
+    public Picture blurcircle(int radius)
+    {
+        Picture newPic = new Picture(pixels.length, pixels[0].length);
+        Pixel[][] other = newPic.getPixels();
+        for(int r = radius; r < pixels.length-radius-1;r++){
+            for(int c = radius; c < pixels[0].length-radius-1;c++){
+                
+                    int red = 0; 
+                    int b = 0;
+                    int g = 0;
+                    for(int x = r-radius; x < r+radius-1;x++)
+                        for(int y = c-radius; y < c+radius-1;y++){
+                            red+=pixels[x][y].getRed();
+                            g+=pixels[x][y].getGreen();
+                            b+=pixels[x][y].getBlue();
+                        }
+
+                
+                other[r][c].setRed((int)(red/(Math.pow(radius, 2)*Math.PI)));
+                other[r][c].setBlue((int)(b/(Math.pow(radius, 2)*Math.PI)));
+                other[r][c].setGreen((int)(g/(Math.pow(radius, 2)*Math.PI)));
+                //System.out.println(other[r][c].getRed());
+            
+            }
+                }
+        
+
+        return newPic; //REPLACbreak;E
+    }
+    public Picture blur(int radius)
+    {
+        Picture newPic = new Picture(pixels.length, pixels[0].length);
+        Pixel[][] other = newPic.getPixels();
+        for(int r = 0; r < pixels.length;r++){
+            for(int c = 0; c < pixels[0].length;c++){
+                
+                    
+                    int red = 0; 
+                    int blue = 0;
+                    int green = 0;
+                    int count = 0;
+                    for(int x = r-radius; x < r+radius;x++)
+                        for(int y = c-radius; c < c+radius;y++){
+                            if(x < 0 ||x > 255 || y <0 || y > 255)
+                                continue;
+                            red+=other[x][y].getRed();
+                            blue+=other[x][y].getBlue();
+                            green+=other[x][y].getGreen();
+                            count++;
+                        }
+
+
+                
+                other[r][c].setRed(red/count);
+                other[r][c].setBlue(blue/count);
+                other[r][c].setGreen(green/count);
+                //System.out.println(other[r][c].getRed());
+                        }
+            
+            }
+                
+        
+
+        return newPic; //REPLACbreak;E
+    }
+    
+    /**
+     * Simulate looking at an image through a pane of glass
+     * @param dist the "radius" of the neighboring pixels to use
+     * @return a new Picture with the glass filter applied
+     */
+    public Picture glassFilter(int dist) 
+    {
+        //TODO
+        
+        return null; //REPLACE
+    }
 }

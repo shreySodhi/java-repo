@@ -4,14 +4,13 @@ public class PictureTester
 {
     public static void main(String[] args) 
     {
-    	//construct a Picture object from a jpg image on disk
-        Picture beach = new Picture("swan.jpg"); 
-        //beach.verticalFlip();
-        beach.edgeDetection(25);
+    	//consntruct a Picture object from a jpg image on disk
+        Picture beach = new Picture("waterlilies.jpg"); 
+        beach.blur(1).view();
         beach.view(); //calling the view() bmethod displays the picture with the PictureViewer GUI
-        
+        //testChvromakey();
         //PUT YOUR TESTS HERE
-       
+        //testSteganography();
         
     }
     
@@ -34,7 +33,7 @@ public class PictureTester
 	{
 		Picture msg   = new Picture("msg.jpg");
 		Picture beach = new Picture("beach.jpg");
-		
+		//msg.view();
 		beach.encode(msg); //hide message in beach picture
 		beach.view();      //beach w/ hidden message inside, shouldn't look different
 		
