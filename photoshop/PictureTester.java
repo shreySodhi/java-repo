@@ -5,13 +5,13 @@ public class PictureTester
     public static void main(String[] args) 
     {
     	//construct a Picture object from a jpg image on disk
-        Picture beach = new Picture("swan.jpg"); 
+        Picture swan = new Picture("waterlilies.jpg"); 
         //beach.verticalFlip();
-        beach.edgeDetection(25);
-        beach.view(); //calling the view() bmethod displays the picture with the PictureViewer GUI
-        testChromakey();
+        //beach.edgeDetection(25);
+        //beach.view(); //calling the view() bmethod displays the picture with the PictureViewer GUI
+        swan.glassFilter(250).view();
         //PUT YOUR TESTS HERE
-       
+    
         
     }
     
