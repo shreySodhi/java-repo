@@ -2,21 +2,23 @@ import java.util.ArrayList;
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
-class wordCloud{
+class WordCloud{
 	private ArrayList<Word> words;
 	private ArrayList<Word>topHits;
 	private int totalWords;
 	private int uniqueWords;
-	public wordCloud(String fileName)throws IOException{
+	public WordCloud(String fileName)throws IOException{
 		words = new ArrayList();
 		topHits = new ArrayList();
 		totalWords = 0;
 		uniqueWords = 0;
+		load(fileName);
 	}
 	private int getIndex(String str){
 		for(int x = 0; x < words.size();x++){
-			if(words.get(x).getWord())
+			if(words.get(x).getWord().equals(str)){
 				return x;
+			}
 		}
 		return -1;
 	}
@@ -25,48 +27,43 @@ class wordCloud{
 		Scanner sc = new Scanner(f);
 		int x = 0;
 		while(sc.hasNext()){
-			String s = (sc.next().toLowerCase());
-			if(sc.hasNext()){
-			   if(sc.next() == "-"){
-			   	s+= " -";
-			   	if(sc.hasNext()){
-			   		words.add(new Word( "- " += sc.next()));
-			   	}
+			String s = sc.next().toLowerCase();
 
-			   }
-				
-			}
-			if(!Character.isLetterOrDigit(s.charAt(s.length()-1))){
-				 s.replace(s.charAt(s.length()-1), ' ');
-
-			}
+			
+			
 			if(!Character.isLetterOrDigit(s.charAt(0))){
-				 s.replace(s.charAt(0), ' ');
-
+				 	s = s.substring(1);
 			}
-			Word w = new Word(s);
-			if(getIndex(w.getWord()) ==-1){
-                
-				words.add(w);
-
+			if(s.length() == 0)
+				continue;
+			if(!Character.isLetterOrDigit(s.charAt(s.length()-1)))
+				s = s.substring(0, s.length()-1);
+			
+			
+			if(getIndex(s) ==-1){
+				words.add(new Word(s));
 			}
-			else
-				w.increment();
+			else{
+				words.get(getIndex(s)).increment();
+			}
+			totalWords++;
 		}
 		findTopHits();
 
 
 	}
 	private void findTopHits(){
-		int f = Integer.MIN_VALUE;
+		
 		
 		for(int x = 0; x < 30;x++){
 			int i = 0;
-			for(int y = 0; y < words.size();y++)
+			int f = Integer.MIN_VALUE;
+			for(int y = 0; y < words.size();y++){
 				if(words.get(y).getCount() > f){
 					f = words.get(y).getCount();
 					i = y;
 				}
+			}
 			topHits.add(words.get(i));
 			words.remove(i);
 		}
@@ -75,6 +72,17 @@ class wordCloud{
 	public ArrayList<Word> getTopHits(){
 		return topHits;
 
+	}
+	public void printStats(){
+		System.out.println("Number of unique words >>> " + (words.size()+topHits.size()));
+		System.out.println("total # of words  >>> " + totalWords);
+		System.out.println("\t word \t Frequency ");
+
+		for(int x = 0; x < 30;x++){
+
+			System.out.println((x+1)+") \t" + topHits.get(x));
+
+		}
 	}
 	
 }

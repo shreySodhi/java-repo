@@ -3,7 +3,7 @@ class Word{
 	private int count;
 	public Word(String w){
 		word = w;
-		count = 0;
+		count = 1;
 	}
 	String getWord(){
 		return word;
