@@ -9,7 +9,7 @@ public class PictureTester
         //beach.verticalFlip();
         //beach.edgeDetection(25);
         //beach.view(); //calling the view() bmethod displays the picture with the PictureViewer GUI
-        swan.glassFilter(250).view();
+        swan.blur(5).view();
         //PUT YOUR TESTS HERE
     
         
