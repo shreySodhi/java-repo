@@ -5,6 +5,7 @@ class MyStack {
     int size = 0;
     Integer[]arr;
     int initSize;
+    
     public MyStack() {
         this(7);
     }
