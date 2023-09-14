@@ -3,22 +3,22 @@ import java.util.EmptyStackException;
 
 class MyStack {
     int size = 0;
-    Square[]arr;
+    Integer[]arr;
     int initSize;
     public MyStack() {
         this(7);
     }
     public void clear(){
-        arr = new Square[initSize];
+        arr = new Integer[initSize];
     }
     MyStack(int initSize){
         this.initSize = initSize;
-        arr = new Square[initSize];
+        arr = new Integer[initSize];
     }
     public boolean isEmpty(){
         return size == 0;
     }
-    public void push(Square val) {
+    public void push(Integer val) {
          if(size == arr.length)
             doubleCapacity();
 
@@ -26,16 +26,16 @@ class MyStack {
         size++;
     }
     public void doubleCapacity(){
-        Square [] arr2 = new Square[arr.length*2];
+        Integer [] arr2 = new Integer[arr.length*2];
         for(int x = 0; x < arr.length;x++){
             arr2[x] = arr[x];
         }
         arr = arr2;
     }
-    public Square pop() {
+    public Integer pop() {
         if(size == 0)
             throw new EmptyStackException();
-        Square x = arr[size-1];
+        Integer x = arr[size-1];
         arr[size-1] = null;
         size--;
         return x;
@@ -44,7 +44,7 @@ class MyStack {
     public int size(){
         return size;
     }
-    public Square peek() {
+    public Integer peek() {
         return  arr[size-1];
     }
     @Override
