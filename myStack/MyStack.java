@@ -21,6 +21,7 @@ class MyStack {
     public boolean isEmpty(){
         return size == 0;
     }
+    
     public void push(Integer val) {
          if(size == arr.length)
             doubleCapacity();
