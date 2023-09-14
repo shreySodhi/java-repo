@@ -21,7 +21,6 @@ class MyStack {
     public void push(Integer val) {
          if(size == arr.length)
             doubleCapacity();
-
         arr[size] = val;
         size++;
     }
@@ -35,11 +34,8 @@ class MyStack {
     public Integer pop() {
         if(size == 0)
             throw new EmptyStackException();
-        Integer x = arr[size-1];
-        arr[size-1] = null;
         size--;
-        return x;
-
+        return arr[size];
     }
     public int size(){
         return size;
@@ -49,6 +45,9 @@ class MyStack {
     }
     @Override
     public String toString() {
-        return Arrays.toString(arr);
+        String s = "top -> ";
+        for(int x = size-1; x > -1;x--)
+            s+=(arr[x] + "\n");
+        return s;
     }
 }
