@@ -21,19 +21,19 @@ class MyStack {
     public void push(Integer val) {
          if(size == arr.length)
             doubleCapacity();
+        
         arr[size] = val;
         size++;
     }
     public void doubleCapacity(){
         Integer [] arr2 = new Integer[arr.length*2];
-        for(int x = 0; x < arr.length;x++){
+        for(int x = 0; x < arr.length;x++)
             arr2[x] = arr[x];
-        }
         arr = arr2;
     }
     public Integer pop() {
         if(size == 0)
-            throw new EmptyStackException();
+            throw new EmptyStackException(); 
         size--;
         return arr[size];
     }
@@ -46,8 +46,10 @@ class MyStack {
     @Override
     public String toString() {
         String s = "top -> ";
+        
         for(int x = size-1; x > -1;x--)
             s+=(arr[x] + "\n");
+        
         return s;
     }
 }
