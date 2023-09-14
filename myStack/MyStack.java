@@ -10,7 +10,7 @@ class MyStack {
         this(7);
     }
     
-    MyStack(int initSize){
+    public MyStack(int initSize){
         this.initSize = initSize;
         arr = new Integer[initSize];
     }
