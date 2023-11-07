@@ -33,7 +33,7 @@ public class RingBuffer
     /** add item x to the end */
     public void enqueue(double x) throws Exception {
         if(isFull())
-            throw new Exception("KYS");
+            throw new Exception("out of bounds breuh");
 
         data[last] = x;
         last = (last+1)%data.length;
@@ -43,7 +43,7 @@ public class RingBuffer
     /** delete and return item from the front */
     public double dequeue() throws Exception {
         if(isEmpty())
-            throw new Exception("KYS");
+            throw new Exception("out of bounds breuh");
         
         double idk = data[first];
         first = (first+1)%data.length;
@@ -54,7 +54,7 @@ public class RingBuffer
     /** return (but do not delete) item from the front */
     public double peek() throws Exception {
         if(isEmpty()){
-            throw new Exception("KYS");
+            throw new Exception("out of bounds breuh");
         }
         return data[first];
     }

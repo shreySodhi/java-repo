@@ -10,7 +10,7 @@ public class GuitarString
     /** create a guitar string of the given frequency 
      * @throws Exception*/
     public GuitarString(double frequency) throws Exception {
-        int length = (int)Math.ceil(frequency/44100);
+        int length = (int)Math.ceil(44100/frequency);
         buffer = new RingBuffer(length);
         for(int x = 0; x < length;x++)
             buffer.enqueue(0.0);
@@ -27,23 +27,23 @@ public class GuitarString
 
     /** pluck the guitar string by replacing the buffer with white noise */
     public void pluck() throws Exception {
-        for(int x = 0; x < buffer.size();x++)
-            buffer.enqueue(buffer.dequeue()-.5 + Math.random());
-        // 
+        for(int x = 0; x < buffer.size();x++){
+            buffer.dequeue();
+            buffer.enqueue(-.5 + Math.random());
+        }
 
     }
 
     /** advance the simulation one time step */
     public void tic() throws Exception {
-
-        buffer.enqueue((buffer.dequeue()+buffer.peek())/2 * 0.996);
+        buffer.enqueue((buffer.dequeue()+buffer.peek())/2 * 0.994);
         time++;
     }
 
     /** return the current sample */
     public double sample() throws Exception {
 
-        return buffer.peek(); //REPLACE
+        return buffer.peek();
     }
 
     /** return number of times tic was called */

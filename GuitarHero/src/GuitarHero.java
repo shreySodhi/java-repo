@@ -13,36 +13,37 @@ public class GuitarHero {
 
     public static void main(String[] args) throws Exception {
 
-        // Create two guitar strings, for concert A and C
-        double CONCERT_A = 440.0;
-        double CONCERT_C = CONCERT_A * Math.pow(2, 3.0/12.0);
-        GuitarString stringA = new GuitarString(CONCERT_A);
-        GuitarString stringC = new GuitarString(CONCERT_C);
-
+        String keyboard = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ";
+        GuitarString arr [] = new GuitarString [37];
+        for(int i = 0; i < 37;i++){
+            arr[i] = new GuitarString(440 * Math.pow(1.05956, i-24));
+        }
 
         // the main input loop
         while (true) {
 
             // check if the user has typed a key, and, if so, process it
             if (StdDraw.hasNextKeyTyped()) {
- 
-                // the user types this character
                 char key = StdDraw.nextKeyTyped();
-
-                // pluck the corresponding string
-                if (key == 'a') { stringA.pluck(); }
-                if (key == 'c') { stringC.pluck(); }
+                // the user types the netKeyTyped which is then plucked
+                if(keyboard.indexOf(String.valueOf(key)) != -1)
+                arr[keyboard.indexOf(key)].pluck();
             }
 
             // compute the superposition of the samples
-            double sample = stringA.sample() + stringC.sample();
+            double sample = 0;
+            for(GuitarString gs: arr){
+                sample+=gs.sample();
+            }
+
 
             // send the result to standard audio
             StdAudio.play(sample);
 
             // advance the simulation of each guitar string by one step
-            stringA.tic();
-            stringC.tic();
+           for(GuitarString gs: arr){
+            gs.tic();
+           }
         }
     }
 

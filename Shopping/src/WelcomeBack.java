@@ -4,6 +4,8 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 public class WelcomeBack {
     String getMiddle(String str){
        return str.length()%2 == 1 ? str.substring(str.length()/2, str.length()/2+1) : str.substring(str.length()/2-1, str.length()/2+1);
@@ -78,8 +80,42 @@ public class WelcomeBack {
     }
     void zeck(String fileName) throws FileNotFoundException{
         File f = new File(fileName);
-        Scanner s = new Scanner(f);   
+        Scanner s = new Scanner(f);
+        while(s.hasNextLine()){
+            int x = s.nextInt();
+            Integer[] nums = GetFibs(x);
+            String line = x+" = ";
+            if(nums[nums.length-1] == x)
+                line+=x;
+            else{
+                x-=nums[nums.length-1];
+                line+=nums[nums.length-1]+" ";
+                int y = -1;
+                while(y!= x){
+                    y = Arrays.binarySearch(nums,x);
+                    x-=y;
+                    line+= y+ " ";
+                }
+            }
+            System.out.println(line);
+            
+        }
+ 
     }
+     Integer[] GetFibs(int n){
+        ArrayList<Integer> fibs = new ArrayList<Integer>();
+        fibs.add(0);
+        fibs.add(1);
+
+        while(fibs.get(fibs.size()-1)+fibs.get(fibs.size()-2) < n){
+            fibs.add(fibs.get(fibs.size()-1)+fibs.size()-2);
+        }
+         Integer[] array = fibs.toArray(new Integer[fibs.size()]);
+        return array;
+
+    }
+    
+
 
 
 }
