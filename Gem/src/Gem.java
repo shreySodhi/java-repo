@@ -10,7 +10,7 @@ public class Gem
 	GemType type;
 	
 	Gem(){
-		point = ((int)(Math.random()*46)) + 5;
+		point = ((int)(Math.random()*11)) * 5;
 
 		switch((int)(Math.random()*3+1)){
 			case 1:
@@ -40,22 +40,15 @@ public class Gem
 	public int getPoints() {
 		return point;
 	}
-    void draw(double x, double y){
-
-		switch(type){
-
-			case GREEN:
-				StdDraw.picture(x, y, "gem_green.png");
-				break;
-			case BLUE:
-				StdDraw.picture(x, y, "gem_blue.png");
-				break;
-			case ORANGE:
-				StdDraw.picture(x, y, "gem_orange.png");
-				break;
-		}
-		
+void draw(double x, double y){
+	switch(type){
+		case GREEN -> StdDraw.picture(x, y, "gem_green.png");
+		case BLUE -> StdDraw.picture(x, y, "gem_blue.png");
+		case ORANGE -> StdDraw.picture(x, y, "gem_orange.png");
 	}
+	StdDraw.setPenColor(StdDraw.WHITE);
+	StdDraw.text(x,y, String.valueOf(point));
+}
 		
 	/** Tester main method */
 	public static void main(String [] args)
