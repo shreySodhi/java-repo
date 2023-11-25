@@ -22,55 +22,37 @@ class SnowFlakePanel extends JPanel
 		/*
 		 * DRAWING CODE BELOW
 		 */
-		g.setColor(Color.BLUE);
-		drawStar(g,200,200,150);
+		 
+		for(int x = 0; x < 15;x++){
+			g.setColor(new Color((int)(Math.random()*256), (int)(Math.random()*256), (int)(Math.random()*256)));
+			drawStar(g,(int) (Math.random()*getHeight()+50), (int) (Math.random()*getWidth()+50), (int)(Math.random() * 80 + 10));		
+		}
+		// g.setColor(Color.BLUE);		
+
+		// drawStar(g, 200, 200, 150);
 	}
 	public void drawStar(Graphics g, int x, int y, int size){
-		if(size < 50){
+		int width =(int) (size*Math.cos(Math.PI/3));
+		int height = (int)(size*Math.sin(Math.PI/3));
+		if(size < 20){
 			g.drawLine(x-size, y, x+size, y); //horizontal line
-			g.drawLine(x-(int)(size*Math.cos(Math.PI/3)), y-(int)(size*Math.sin(Math.PI/3)), x+(int)(size*Math.cos(Math.PI/3)), y+(int)(size*Math.sin(Math.PI/3))); // diagonal line with negative slope
-			g.drawLine(x-(int)(size*Math.cos(2*Math.PI/3)), y-(int)(size*Math.sin(2*Math.PI/3)), x+(int)(size*Math.cos(2*Math.PI/3)), y+(int)(size*Math.sin(2*Math.PI/3))); //diagonal line with positive slope
+			g.drawLine(x-width, y-height, x+width, y+height); // diagonal line with negative slope
+			g.drawLine(x-width, y+height, x+width, y-height); // digaonal line with postive slope		
 			return; // base case
 		}
 		g.drawLine(x-size, y, x+size, y); //horizontal line drawn
-		drawStar(g,x-size, y, size-60); //star on left 
-		drawStar(g,x+size, y, size-60); // star on right 
-		
-		g.drawLine(x-(int)(size*Math.cos(Math.PI/3)), y-(int)(size*Math.sin(Math.PI/3)), x+(int)(size*Math.cos(Math.PI/3)), y+(int)(size*Math.sin(Math.PI/3)));// diagonal line with positive slope
-		drawStar(g,x-(int)(size*Math.cos(Math.PI/3)), y-(int)(size*Math.sin(Math.PI/3)), size-60);// star on top left 
-		drawStar(g,x+(int)(size*Math.cos(Math.PI/3)), y+(int)(size*Math.sin(Math.PI/3)), size-60); // star on bottom right 
+		drawStar(g,x-size, y, (int)(size/4)); //star on left 
+		drawStar(g,x+size, y,(int) (size/4)); // star on right 
 
-		g.drawLine(x-(int)(size*Math.cos(2*Math.PI/3)), y-(int)(size*Math.sin(2*Math.PI/3)), x+(int)(size*Math.cos(2*Math.PI/3)), y+(int)(size*Math.sin(2*Math.PI/3)));// diagonal line 2
-		drawStar(g,x-(int)(size*Math.cos(2*Math.PI/3)), y-(int)(size*Math.sin(2*Math.PI/3)), size-60); // star on top right
-		drawStar(g,x+(int)(size*Math.cos(2*Math.PI/3)), y+(int)(size*Math.sin(2*Math.PI/3)), size-60); // star on bottpm left 
+		g.drawLine(x-width, y-height, x+width, y+height); // diagonal line with negative slope
+		drawStar(g,x-width, y-height, (int)(size/4));// star on top left 
+		drawStar(g,x+width, y+height,(int) (size/4)); // star on bottom right 
+
+		g.drawLine(x-width, y+height, x+width, y-height); //diagonal line 2
+		drawStar(g,x-width, y+height,(int) (size/4)); // star on top right
+		drawStar(g,x+width, y-height,(int) (size/4)); // star on bottom left 
 	}
-
 }
-// 	public void drawStar(Graphics g, int x, int y, int size)
-// 	{
-// 		if (size<50) {
-// 			g.drawLine(x, y, x + size, y);
-// 			g.drawLine(x, y, x + (int) (size * Math.cos(2 * Math.PI / 6)), y - (int) (size * Math.sin(2 * Math.PI / 6)));
-// 			g.drawLine(x, y, x + (int) (size * Math.cos(4 * Math.PI / 6)), y - (int) (size * Math.sin(4 * Math.PI / 6)));
-// 			g.drawLine(x, y, x - size, y);
-// 			g.drawLine(x, y, x + (int) (size * Math.cos(8 * Math.PI / 6)), y - (int) (size * Math.sin(8 * Math.PI / 6)));
-// 			g.drawLine(x, y, x + (int) (size * Math.cos(10 * Math.PI / 6)), y - (int) (size * Math.sin(10 * Math.PI / 6)));
-// 			return;
-// 		}
-// 		g.drawLine(x, y, x + size, y);
-// 		drawStar(g,x + size, y, size-60);
-// 		g.drawLine(x, y, x + (int) (size * Math.cos(2 * Math.PI / 6)), y - (int) (size * Math.sin(2 * Math.PI / 6)));
-// 		drawStar(g,x + (int) (size * Math.cos(2 * Math.PI / 6)), y - (int) (size * Math.sin(2 * Math.PI / 6)), size-60);
-// 		g.drawLine(x, y, x + (int) (size * Math.cos(4 * Math.PI / 6)), y - (int) (size * Math.sin(4 * Math.PI / 6)));
-// 		drawStar(g,x + (int) (size * Math.cos(4 * Math.PI / 6)), y - (int) (size * Math.sin(4 * Math.PI / 6)), size-60);
-// 		g.drawLine(x, y, x - size, y);
-// 		drawStar(g,x - size, y,size-60);
-// 		g.drawLine(x, y, x + (int) (size * Math.cos(8 * Math.PI / 6)), y - (int) (size * Math.sin(8 * Math.PI / 6)));
-// 		drawStar(g,x + (int) (size * Math.cos(8 * Math.PI / 6)), y - (int) (size * Math.sin(8 * Math.PI / 6)), size-60);
-// 		g.drawLine(x, y, x + (int) (size * Math.cos(10 * Math.PI / 6)), y - (int) (size * Math.sin(10 * Math.PI / 6)));
-// 		drawStar(g,x + (int) (size * Math.cos(10 * Math.PI / 6)), y - (int) (size * Math.sin(10 * Math.PI / 6)), size-60);
-// 	}
-// }
 
 public class Snowflake
 {
