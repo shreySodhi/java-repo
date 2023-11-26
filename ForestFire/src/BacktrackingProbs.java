@@ -5,17 +5,18 @@ public class BacktrackingProbs {
     public static void main(String[] args) {
         climbStairs(4);
         campSite(2, 1);
+        System.out.println(getMax (Arrays.asList(7, 30, 8, 22, 6, 1, 14) , 19));
+
         makeChangeCombos(15);
         System.out.println(makeChange(15));
-        // System.out.println(getMax (Arrays.asList(7, 30, 8, 22, 6, 1, 14) , 19));
+        System.out.println(longestCommonSub("ABCDEFG","BGCEHAF"));
     }
     
     static String printBinary(int n) {
         return printBinaryHelper(n, "");
     }
     static String printBinaryHelper(int n, String s){
-        if(s.length() == n)
-            return s + " ";
+        if(s.length() == n) return s + " ";
         return printBinaryHelper(n, s+0) + printBinaryHelper(n, s+1);
         
     }
@@ -24,8 +25,7 @@ public class BacktrackingProbs {
     }
     static void climbStairsHelper(int steps, String soFar){
         if(steps >= 0){
-            if(steps == 0)
-                System.out.println(soFar.substring(1));
+            if(steps == 0) System.out.println(soFar.substring(1));
             
             climbStairsHelper(steps-1, soFar+", 1");
             climbStairsHelper(steps-2, soFar+", 2");
@@ -48,11 +48,12 @@ public class BacktrackingProbs {
     }
     static int getMaxHelper(List<Integer> nums, int limit, int i, int max){
         if(i == nums.size()) return max;
+
         else if(max > limit) return -1000;
 
         max =  Math.max(getMaxHelper(nums, limit, i+1, max+nums.get(i)), getMaxHelper(nums,limit, i+1, max));
         if(max > limit) max-= nums.get(i);
-
+        
         return max;
     }
     static int makeChange(int amount){
@@ -81,5 +82,26 @@ public class BacktrackingProbs {
         combo[coin]--; // when recursively going back set combo back to normal
     }
     }
+    static String longestCommonSub(String s1, String s2){
+        return longestCommonSubHelper(s1, s2, 1 , "", "");
+    }
+    static String longestCommonSubHelper(String s1, String s2, int i, String soFar, String ans){
+        if(i == s1.length()) return soFar;
+        
+        String s = s1.substring(i,i+1);
+        if(s2.indexOf(s) < s2.indexOf(soFar.substring(soFar.length()-1))){
+            return longestCommonSubHelper(s1,s2,i+1,soFar,ans);
+        }
+        
+         soFar+=s1.substring(i,i+1);
+         String a = longestCommonSubHelper(s1, s2, i+1, soFar, ans);
+         String b = longestCommonSubHelper(s1, s2, i+1, soFar.substring(0, soFar.length()-1), ans);
+
+         if(b.length() > a.length()) ans = b;
+         else ans = a;
+        
+        return ans;
+    }
+
 }
 
