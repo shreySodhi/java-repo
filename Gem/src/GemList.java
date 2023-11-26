@@ -68,20 +68,17 @@ public class GemList
 		if(size == 0)
 			return 0;
 		if(size == 1)
-			return head.gem.point;
-		
+			return head.gem.point;		
 		//reset score
 		score = 0;
 		Node temp = head;
 		int multiplier = 1;
 		int partialScore = head.gem.point;// need this if the gem after head has the same color
-
 		while (temp.next != null) {
 			if(temp.gem.type.equals(temp.next.gem.type)){//calculate multiplied segment sum
 				multiplier++;
 				partialScore+=(temp.next.gem.point);
 			}
-
 			else{
 				if(multiplier > 1){ //add multiplied segment
 					score+=(partialScore*multiplier);
@@ -91,7 +88,6 @@ public class GemList
 				else{// add previous points
 					score+=temp.gem.getPoints();
 					partialScore = temp.next.gem.getPoints();// update for segmenr
-
 					if(temp.next.next == null) // avoids ignoring tail gem
 						score+=partialScore;
 				}
@@ -101,11 +97,8 @@ public class GemList
 		
 		if(multiplier > 1)// last 
 			score+=(partialScore*multiplier);
-				
 		return score;
 	}
-
-	
 	
 	public static void main(String [] args)
 	{
