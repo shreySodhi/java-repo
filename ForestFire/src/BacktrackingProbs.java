@@ -5,13 +5,12 @@ public class BacktrackingProbs {
     public static void main(String[] args) {
         climbStairs(4);
         campSite(2, 1);
-        System.out.println(getMax (Arrays.asList(7, 30, 8, 22, 6, 1, 14) , 19));
-
+        System.out.println(getMax(Arrays.asList(7, 30, 8, 22, 6, 1, 14), 19));
         makeChangeCombos(15);
         System.out.println(makeChange(15));
-        System.out.println(longestCommonSub("ABCDEFG","BGCEHAF"));
+        System.out.println(longestCommonSub("ABCDEFG", "BGCEHAF"));
+        System.out.println(longestCommonSub("12345","543212154321"));
     }
-    
     static String printBinary(int n) {
         return printBinaryHelper(n, "");
     }
@@ -26,7 +25,7 @@ public class BacktrackingProbs {
     static void climbStairsHelper(int steps, String soFar){
         if(steps >= 0){
             if(steps == 0) System.out.println(soFar.substring(1));
-            
+
             climbStairsHelper(steps-1, soFar+", 1");
             climbStairsHelper(steps-2, soFar+", 2");
         }
@@ -48,7 +47,6 @@ public class BacktrackingProbs {
     }
     static int getMaxHelper(List<Integer> nums, int limit, int i, int max){
         if(i == nums.size()) return max;
-
         else if(max > limit) return -1000;
 
         max =  Math.max(getMaxHelper(nums, limit, i+1, max+nums.get(i)), getMaxHelper(nums,limit, i+1, max));
@@ -59,7 +57,6 @@ public class BacktrackingProbs {
     static int makeChange(int amount){
         return makeChangeHelper(new int[]{1,5,10,25}, 0, amount);
     }
-
     static int makeChangeHelper(int[] coins, int coin, int amount) {// intuition: we can generate unique combos by using current coin or skipping current coin
         if (amount < 0 || coin>= coins.length) return 0; // do nothing
         if (amount == 0) return 1;// combo found
@@ -82,26 +79,26 @@ public class BacktrackingProbs {
         combo[coin]--; // when recursively going back set combo back to normal
     }
     }
-    static String longestCommonSub(String s1, String s2){
-        return longestCommonSubHelper(s1, s2, 1 , "", "");
-    }
-    static String longestCommonSubHelper(String s1, String s2, int i, String soFar, String ans){
-        if(i == s1.length()) return soFar;
-        
-        String s = s1.substring(i,i+1);
-        if(s2.indexOf(s) < s2.indexOf(soFar.substring(soFar.length()-1))){
-            return longestCommonSubHelper(s1,s2,i+1,soFar,ans);
-        }
-        
-         soFar+=s1.substring(i,i+1);
-         String a = longestCommonSubHelper(s1, s2, i+1, soFar, ans);
-         String b = longestCommonSubHelper(s1, s2, i+1, soFar.substring(0, soFar.length()-1), ans);
 
-         if(b.length() > a.length()) ans = b;
-         else ans = a;
-        
-        return ans;
+    static String longestCommonSub(String s1, String s2) {
+        return longestCommonSubHelper(s1, s2, 0, 0, "");
+    }
+
+    static String longestCommonSubHelper(String s1, String s2, int i, int j, String lcs) {
+        // return the lcs if we reach the end of either string
+        if (i == s1.length() || j == s2.length())  return lcs;
+
+        // If the current characters in both strings match, include this character in the LCS
+        if (s1.charAt(i) == s2.charAt(j)) {
+            return longestCommonSubHelper(s1, s2, i + 1, j + 1, lcs + s1.charAt(i));
+        } else {
+            //Move to the next character in s1
+            String lcs1 = longestCommonSubHelper(s1, s2, i + 1, j, lcs);
+            // Move to the next character in s2
+            String lcs2 = longestCommonSubHelper(s1, s2, i, j + 1, lcs);
+            // Return the longer of the two possible LCS
+            return (lcs1.length() > lcs2.length()) ? lcs1 : lcs2;
+        }
     }
 
 }
-
