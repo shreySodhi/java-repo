@@ -1,13 +1,13 @@
 public class FireModel
+
 {
-    public static int SIZE = 2;
+    public static int SIZE = 47;
     private FireCell[][] myGrid;
     private FireView myView;
-
+    private boolean trouble = false;
     public FireModel(FireView view)
     {
         myGrid = new FireCell[SIZE][SIZE];
-        int setNum = 0;
         for (int r=0; r<SIZE; r++)
         {
             for (int c=0; c<SIZE; c++)
@@ -19,38 +19,32 @@ public class FireModel
         myView.updateView(myGrid);
     }
 
-    /*
-        recursiveFire method here
-     */
-   void recursiveFire(int r, int c, boolean trouble, int counter){
-       if(trouble || c == SIZE || c == -1 || r == SIZE || myGrid[r][c].getStatus() == FireCell.DIRT) // base cases
+   void  recursiveFire(int r, int c){
+        if(r == -1) trouble = true; //Fire has reached onnet
+        if(c == SIZE || c == -1 || r == -1 ||r == SIZE || myGrid[r][c].getStatus() == FireCell.DIRT || myGrid[r][c].getStatus() == FireCell.BURNING) // base cases
            return;
-       System.out.println(counter);
-       counter++;
-        if(r == 0) { // reached Onnet
-            trouble = true;
-            return;
-        }
-        //if cell is green then burn
-        if(myGrid[r][c].getStatus() == FireCell.GREEN)
+        if(myGrid[r][c].getStatus() == FireCell.GREEN) // If cell is green then burn it
             myGrid[r][c].setStatus(FireCell.BURNING);
+            
+        recursiveFire(r-1,c); // up
+        recursiveFire(r,c+1); // left
+        recursiveFire(r,c-1); // right
+        recursiveFire(r+1,c); // down
 
-       recursiveFire(r,c+1,trouble,counter); // right
-       recursiveFire(r-1,c,trouble,counter); //  up
-       recursiveFire(r,c-1,trouble,counter); // left
    }
+   public void solve() {
+    boolean tempTrouble = false;
+    for (int c = 0; c < SIZE; c++) {
+        recursiveFire(SIZE - 1, c);
+        if (trouble) {
+            System.out.println("ONNET IS IN TROUBLE!");
+            tempTrouble = true;
+            trouble = false;
+        }
 
-    public void solve()
-    {
-        boolean trouble = false;
-        for(int c = 0; c < SIZE ;c++)
-            recursiveFire(SIZE-1,c,trouble,0);
-
-        if (trouble) System.out.println("YESSS BURN ONETT BURRRRRRRRRRRN!");
-
-        else System.out.println("aww maaan nothing ever fun happens");
-        // student code here
-        myView.updateView(myGrid);
     }
+    if (!tempTrouble)
+        System.out.println("ONNET IS SAFE!");
+   }
 
 }

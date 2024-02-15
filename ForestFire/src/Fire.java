@@ -1,7 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.event.*;
+
 
 /*
     this is the Controller component
@@ -30,9 +30,9 @@ class Fire extends JFrame
 
     public static void main(String[] args)
     {
+   
         Fire smokey = new Fire();
-        smokey.addWindowListener(new WindowAdapter()
-                                 {
+        smokey.addWindowListener(new WindowAdapter(){
                                      public void windowClosing(WindowEvent e)
                                      {
                                          System.exit(0);
@@ -44,3 +44,4 @@ class Fire extends JFrame
         smokey.setVisible(true);
     }
 }
+

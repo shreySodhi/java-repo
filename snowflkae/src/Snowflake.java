@@ -25,7 +25,7 @@ class SnowFlakePanel extends JPanel
 		 
 		for(int x = 0; x < 15;x++){
 			g.setColor(new Color((int)(Math.random()*256), (int)(Math.random()*256), (int)(Math.random()*256)));
-			drawStar(g,(int) (Math.random()*getHeight()+50), (int) (Math.random()*getWidth()+50), (int)(Math.random() * 80 + 10));		
+			drawStar(g,(int) (Math.random()*getHeight()+getHeight()/4), (int) (Math.random()*getWidth()+getWidth()/4), (int)(Math.random() * 80 + 10));		
 		}
 		// g.setColor(Color.BLUE);		
 
