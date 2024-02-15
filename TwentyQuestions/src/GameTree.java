@@ -122,7 +122,7 @@ public class GameTree
 	}
 	public String toString(Node node, String literal)
 	{
-		if (node == null) return "" ; 
+		if (node == null) return ""; 
 		return toString(node.no, literal + "- ") + literal + node.val + "\n" + toString(node.yes, literal + "- ");
 	}
 
