@@ -11,10 +11,8 @@ public class cowntract {
 		int N = Integer.parseInt(r.readLine());
 		String cows = r.readLine();
 		// base cases
-		if (cows.indexOf("0") == -1)
-			pw.println(1);
-		else if (cows.indexOf("1") == -1)
-			pw.println(0);
+		if (cows.indexOf("0") == -1) pw.println(1);
+		else if (cows.indexOf("1") == -1)pw.println(0);
 		else {
 			int nights = Integer.MAX_VALUE;
 			int length = 0;
